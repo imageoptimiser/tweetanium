@@ -39,11 +39,7 @@ App.UI.registerUIComponent('control','jquery_dialog',
 					},
 					{name: "buttons", 
 						optional: true, 
-						description: "Specifies which buttons should be displayed on the dialog. The property key is the text of the button. The value is the callback function for when the button is clicked. The context of the callback is the dialog element; if you need access to the button, it is available as the target of the event object.", 
-						defaultValue: {
-							"Delete all items in recycle bin": function() { jQuery(this).dialog('close'); }, 
-							"Cancel": function() { jQuery(this).dialog('close'); }
-						}
+						description: "Specifies which buttons should be displayed on the dialog. The property key is the text of the button. The value is the callback function for when the button is clicked. The context of the callback is the dialog element; if you need access to the button, it is available as the target of the event object."
 					},
 					{name: "dialogClass", 
 						optional: true, 
@@ -175,7 +171,7 @@ App.UI.registerUIComponent('control','jquery_dialog',
 
 		this.title =  function(value)
 		{
-			jQuery("#ui-dialog-title-" + this.id).html(App.getActionValue(value));
+			jQuery("#ui-dialog-title-" + this.id).html(App.getActionValue(value,'value'));
 		}
 		
 		this.open = function(value)
@@ -195,12 +191,16 @@ App.UI.registerUIComponent('control','jquery_dialog',
 				
 		this.content = function(value)
 		{
-			jQuery("#" + this.id + ".ui-dialog-content.ui-widget-content").get(0).innerHTML = App.getActionValue(value);
+			jQuery("#" + this.id + ".ui-dialog-content.ui-widget-content").get(0).innerHTML = App.getActionValue(value,'value');
 		}
-		
+		this.loadURL = function(value)
+		{
+			jQuery("#" + this.id + ".ui-dialog-content.ui-widget-content").load(App.getActionValue(value,'url'));
+			
+		}
 		this.getActions = function()
 		{
-			return ['title','open','close','content'];
+			return ['title','open','close','content','isOpen','loadURL'];
 		}
 
 		this.build = function(element,options)
@@ -208,17 +208,27 @@ App.UI.registerUIComponent('control','jquery_dialog',
 			this.options = options;
 			this.id = element.id;
 			
-			setTimeout(function() {
+        	jQuery("#" + element.id).dialog(options);
 
-	        	jQuery("#" + element.id).dialog(options);
-	
-				if(options.content)
-				{
-					jQuery("#" + element.id + ".ui-dialog-content.ui-widget-content").get(0).innerHTML = options.content;
-				}	
-
-			}, 10);
+			if(options.content)
+			{
+				jQuery("#" + element.id + ".ui-dialog-content.ui-widget-content").get(0).innerHTML = options.content;
+			}
+			
+			else if(options.url)
+			{
+				jQuery("#" + element.id + ".ui-dialog-content.ui-widget-content").load(options.url);
+			}
+			else
+			{
+				jQuery("#" + element.id + ".ui-dialog-content.ui-widget-content").get(0).innerHTML = element.innerHTML;
+				
+			}
 	
 		}
+		
+		this.getControlCSS = function() {
+		  return ['../../common/css/jquery-themes/ui.all.css']
+		};
 	}
 });

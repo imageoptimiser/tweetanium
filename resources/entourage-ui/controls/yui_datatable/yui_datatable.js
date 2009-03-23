@@ -44,7 +44,7 @@ App.UI.registerUIComponent('control','yui_datatable',
 		{
 			// the file, "assets/data.js" contains an object with dummy data in it.
 			
-			return ['../../../common/js/yahoo-min.js','assets/data.js']
+			return ['../../common/js/yahoo-min.js']
 		}
 		
 		/*
@@ -375,7 +375,7 @@ App.UI.registerUIComponent('control','yui_datatable',
 
 			this.deleteRow = function(value)
 			{
-				this.dataTable.deleteRow(App.getActionValue(value));
+				this.dataTable.deleteRow(App.getActionValue(value,'index'));
 			}
 
 			this.deleteRows = function(value)

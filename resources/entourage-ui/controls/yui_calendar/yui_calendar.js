@@ -132,13 +132,13 @@ App.UI.registerUIComponent('control','yui_calendar',
 		
 		this.mindate = function(value)
 		{
-			this.cal.cal.cfg.setProperty("mindate", App.getActionValue(value),false); 
+			this.cal.cal.cfg.setProperty("mindate", App.getActionValue(value,'mindate'),false); 
 			this.cal.cal.render();
 		}
 		
 		this.value = function(value)
 		{
-			var val = App.getActionValue(value);
+			var val = App.getActionValue(value,'value');
 			this.cal.cal.cfg.setProperty("selected",val,false);
 			var parts = val.split('/')
 			if (parts.length == 3)
@@ -156,7 +156,7 @@ App.UI.registerUIComponent('control','yui_calendar',
 		
 		this.addMonths = function(value)
 		{
-			this.cal.addMonths(parseInt(App.getActionValue(value)));
+			this.cal.addMonths(parseInt(App.getActionValue(value,'value')));
 		}
 		
 		this.addRenderer = function(value)
@@ -171,7 +171,7 @@ App.UI.registerUIComponent('control','yui_calendar',
 		
 		this.addYears = function(value)
 		{
-			this.cal.addYears(parseInt(App.getActionValue(value)));
+			this.cal.addYears(parseInt(App.getActionValue(value,'value')));
 		}
 		
 		this.applyListeners = function(value)
@@ -181,7 +181,7 @@ App.UI.registerUIComponent('control','yui_calendar',
 		
 		this.buildDayLabel = function(value)
 		{
-			return this.cal.buildDayLabel(App.getActionValue(value));
+			return this.cal.buildDayLabel(App.getActionValue(value,'value'));
 		}
 		
 		this.buildMonthLabel = function(value)
@@ -191,7 +191,7 @@ App.UI.registerUIComponent('control','yui_calendar',
 		
 		this.buildWeekdays = function(value)
 		{
-			return this.cal.buildWeekdays(App.getActionValue(value));
+			return this.cal.buildWeekdays(App.getActionValue(value,'value'));
 		}
 		
 		this.clear = function(value)
@@ -201,12 +201,12 @@ App.UI.registerUIComponent('control','yui_calendar',
 		
 		this.clearAllBodyCellStyles = function(value)
 		{
-			this.cal.clearAllBodyCellStyles(App.getActionValue(value));
+			this.cal.clearAllBodyCellStyles(App.getActionValue(value,'value'));
 		}
 		
 		this.clearElement = function(value)
 		{
-			this.cal.clearElement(App.getActionValue(value));
+			this.cal.clearElement(App.getActionValue(value,'value'));
 		}
 		
 		this.configClose = function(value)
@@ -276,12 +276,12 @@ App.UI.registerUIComponent('control','yui_calendar',
 		
 		this.createTitleBar = function(value)
 		{
-			this.cal.createTitleBar(App.getActionValue(value));
+			this.cal.createTitleBar(App.getActionValue(value,'value'));
 		}
 		
 		this.deselect = function(value)
 		{
-			return this.cal.deselect(App.getActionValue(value));
+			return this.cal.deselect(App.getActionValue(value,'value'));
 		}
 		
 		this.deselectAll = function(value)
@@ -291,7 +291,7 @@ App.UI.registerUIComponent('control','yui_calendar',
 		
 		this.deselectCell = function(value)
 		{
-			return this.cal.deselectCell(App.getActionValue(value));
+			return this.cal.deselectCell(App.getActionValue(value,'value'));
 		}
 		
 		this.destroy = function(value)
@@ -326,22 +326,22 @@ App.UI.registerUIComponent('control','yui_calendar',
 		
 		this.getCellIndex = function(value)
 		{
-			return this.cal.getCellIndex(App.getActionValue(value));
+			return this.cal.getCellIndex(App.getActionValue(value,'value'));
 		}
 		
 		this.getDateByCellId = function(value)
 		{
-			return this.cal.getDateByCellId(App.getActionValue(value));
+			return this.cal.getDateByCellId(App.getActionValue(value,'value'));
 		}
 		
 		this.getDateFieldsByCellId = function(value)
 		{
-			return this.cal.getDateFieldsByCellId(App.getActionValue(value));
+			return this.cal.getDateFieldsByCellId(App.getActionValue(value,'value'));
 		}
 		
 		this.getIndexFromId = function(value)
 		{
-			return this.cal.getIndexFromId(App.getActionValue(value));
+			return this.cal.getIndexFromId(App.getActionValue(value,'value'));
 		}
 		
 		this.getSelectedDates = function(value)
@@ -371,12 +371,12 @@ App.UI.registerUIComponent('control','yui_calendar',
 		
 		this.isDateOOB = function(value)
 		{
-			return this.cal.isDateOOB(App.getActionValue(value));
+			return this.cal.isDateOOB(App.getActionValue(value,'value'));
 		}
 
 		this.isDateOOM = function(value)
 		{
-			this.cal.isDateOOM(App.getActionValue(value));
+			this.cal.isDateOOM(App.getActionValue(value,'value'));
 		}
 		
 		this.nextMonth = function(value)
@@ -506,22 +506,22 @@ App.UI.registerUIComponent('control','yui_calendar',
 		
 		this.select = function(value)
 		{
-			this.cal.select(App.getActionValue(value));
+			this.cal.select(App.getActionValue(value,'value'));
 		}
 		
 		this.selectCell = function(value)
 		{
-			return this.cal.selectCell(App.getActionValue(value));
+			return this.cal.selectCell(App.getActionValue(value,'value'));
 		}
 		
 		this.setMonth = function(value)
 		{
-			this.cal.setMonth(App.getActionValue(value));
+			this.cal.setMonth(App.getActionValue(value,'value'));
 		}
 		
 		this.setYear = function(value)
 		{
-			this.cal.setYear(App.getActionValue(value));
+			this.cal.setYear(App.getActionValue(value,'value'));
 		}
 		
 		this.show = function(value)
@@ -536,17 +536,17 @@ App.UI.registerUIComponent('control','yui_calendar',
 		
 		this.subtractMonths = function(value)
 		{
-			this.cal.subtractMonths(App.getActionValue(value));
+			this.cal.subtractMonths(App.getActionValue(value,'value'));
 		}
 		
 		this.subtractYears = function(value)
 		{
-			this.cal.subtractYears(App.getActionValue(value));
+			this.cal.subtractYears(App.getActionValue(value,'value'));
 		}
 		
 		this.toDate = function(value)
 		{
-			this.cal.toDate(App.getActionValue(value));
+			this.cal.toDate(App.getActionValue(value,'value'));
 		}
 		
 		this.toString = function(value)

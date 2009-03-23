@@ -129,12 +129,12 @@ App.UI.registerUIComponent('control','jquery_tabs',
 		
 		this.enable = function(value)
 		{
-			jQuery("#" + this.id).tabs("enable", parseInt(App.getActionValue(value)));
+			jQuery("#" + this.id).tabs("enable", parseInt(App.getActionValue(value, 'index')));
 		}
 		
 		this.disable = function(value)
 		{
-			jQuery("#" + this.id).tabs("disable", parseInt(App.getActionValue(value)));
+			jQuery("#" + this.id).tabs("disable", parseInt(App.getActionValue(value, 'index')));
 		}
 		
 		this.add = function(value)
@@ -153,19 +153,19 @@ App.UI.registerUIComponent('control','jquery_tabs',
 		this.remove = function(value)
 		{
 			jQuery("#" + this.id).tabs("remove",
-				parseInt((App.getActionValue(value))));
+				parseInt((App.getActionValue(value, 'index'))));
 		}
 
 		this.select = function(value)
 		{
 			jQuery("#" + this.id).tabs("select",
-				parseInt(App.getActionValue(value)));
+				parseInt(App.getActionValue(value, 'index')));
 		}
 
 		this.load = function(value)
 		{
 			jQuery("#" + this.id).tabs("load", 
-				parseInt(App.getActionValue(value)));
+				parseInt(App.getActionValue(value, 'index')));
 		}
 
 		this.url = function(value)
@@ -193,8 +193,12 @@ App.UI.registerUIComponent('control','jquery_tabs',
 		
 		this.getActions = function()
 		{
-			return ['add','remove','enable','disable','select','reload','render'];
+			return ['enable','disable','add','remove','select','reload','render','load','url','length'];
 		}
+		
+		this.getControlCSS = function() {
+		  return ['../../common/css/jquery-themes/ui.all.css']
+		};
 		
 		this.render = function(value)
 		{
@@ -248,7 +252,7 @@ App.UI.registerUIComponent('control','jquery_tabs',
 					{
 						var li = "<li><a href='";
 					
-						li += node.getAttribute("href") || "#" + node.id;
+						li += node.getAttribute("url") || "#" + node.id;
 					
 						li += "'>" + node.title + "</a></li>";
 

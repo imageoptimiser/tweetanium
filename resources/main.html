@@ -3,9 +3,9 @@
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
 	<link rel="stylesheet" href="stylesheets/site.css" type="text/css" charset="utf-8"/>
 	<link rel="stylesheet" href="stylesheets/main.css" type="text/css" charset="utf-8"/>
-	<script type="text/javascript" src="javascript/tools.js"></script>
-    <script type="text/javascript" src="entourage/entourage-debug.js"></script>
-	<script type="text/javascript" src="javascript/main.js"></script>
+	<script type="text/javascript" src="javascripts/tools.js"></script>
+    <script type="text/javascript" src="javascripts/entourage-debug.js"></script>
+	<script type="text/javascript" src="javascripts/main.js"></script>
 </head>
 <body>
   <div id="body">
@@ -45,27 +45,18 @@
 			</ul>
 		</div>
 		<div class="paging all_paging">
-			<!-- div class="home_link all_home_link"><img src="images/main/home.png"></div -->
 			<div class="paging_text all_paging_text"></div>
-			<div class="next_page all_next_page"></div>
-			<div class="prev_page all_prev_page"></div>
 		</div>
 		<div class="paging replies_paging" style="display:none">
-			<!-- div class="home_link replies_home_link"><img src="images/main/home.png"></div -->
 			<div class="paging_text replies_paging_text"></div>
-			<div class="next_page replies_next_page"></div>
-			<div class="prev_page replies_prev_page"></div>
 		</div>
 		<div class="paging dm_paging" style="display:none">
-			<!-- div class="home_link dm_home_link"><img src="images/main/home.png"></div -->
-			<div class="paging_text dm_paging_text"></div>
-			<div class="next_page dm_next_page"></div>
-			<div class="prev_page dm_prev_page"></div>
+			<div class="paging_text dm_paging_text" style="left:89px"></div>
 		</div>
 
-		<div id="content"></div>
-		<div id="replies_content" style="display:none"></div>
-		<div id="dm_content" style="display:none"></div>
+		<div id="content" style="height:360px;overflow:auto"></div>
+		<div id="replies_content" style="display:none;height:360px;overflow:auto"></div>
+		<div id="dm_content" style="display:none;height:360px;overflow:auto"></div>
 
 	</div>
 	<div id="bottom">

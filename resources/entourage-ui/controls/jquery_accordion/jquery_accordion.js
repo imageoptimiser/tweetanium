@@ -64,7 +64,7 @@ App.UI.registerUIComponent('control','jquery_accordion',
 					},
 					{name: "header", 
 						optional: true, 
-						description: "Selector for the header element. ",
+						description: "Selector for the header element.",
 						defaultValue: "h3.ui-accordion-header"
 					},
 					{name: "icons", 
@@ -87,7 +87,7 @@ App.UI.registerUIComponent('control','jquery_accordion',
 					},
 					{name: "selectedClass", 
 						optional: true, 
-						description: "", 
+						description: "The class to apply to the row header that is currently selected.", 
 						defaultValue: "selected"
 					}
 					];
@@ -95,7 +95,7 @@ App.UI.registerUIComponent('control','jquery_accordion',
 
 		this.title =  function(value)
 		{
-			jQuery("#" + this.id + " .ui-accordion-header a").get(App.getActionValue(value,'index')).innerHTML = App.getActionValue(value,'value');
+			jQuery("#" + this.id + " .ui-accordion-header a").eq(App.getActionValue(value,'index')).html(App.getActionValue(value,'value'));
 		}
 		
 		this.enable = function(value)
@@ -110,34 +110,32 @@ App.UI.registerUIComponent('control','jquery_accordion',
 		
 		this.hideRow = function(value)
 		{
-			var el = jQuery("#" + this.id + " .ui-accordion-group").get(App.getActionValue(value,'index')); 
-			jQuery(el).hide();
+			jQuery("#" + this.id + " .ui-accordion-group").eq(parseInt(App.getActionValue(value, 'index'))).hide(); 
 		}
 		
 		this.content = function(value)
 		{
-			jQuery("#" + this.id + " .ui-accordion-content").get(App.getActionValue(value,'index')).innerHTML = App.getActionValue(value,'value');
+			jQuery("#" + this.id + " .ui-accordion-content").eq(parseInt(App.getActionValue(value,'index'))).html(App.getActionValue(value,'value'));
 		}
 		
 		this.showRow = function(value)
 		{
-			var el = jQuery("#" + this.id + " .ui-accordion-group").get(App.getActionValue(value,'index')); 
-			jQuery(el).show();
+			jQuery("#" + this.id + " .ui-accordion-group").eq(parseInt(App.getActionValue(value,'index'))).show(); 
 		}
 		
 		this.activate = function(value)
 		{
-			jQuery("#" + this.id).accordion("activate", App.getActionValue(value, "index"));
+			jQuery("#" + this.id).accordion("activate", parseInt(App.getActionValue(value,'index')));
 		}
 		
 		this.remove = function(value)
 		{
-			jQuery(jQuery("#" + this.id + " .ui-accordion-group").get(App.getActionValue(value,'index'))).remove();
+			jQuery("#" + this.id + " .ui-accordion-group").eq(parseInt(App.getActionValue(value,'index'))).remove();
 		}
 		
 		this.loadHTML = function(value)
 		{
-			jQuery(jQuery("#" + this.id + " .ui-accordion-content").get(App.getActionValue(value,'index'))).load(App.getActionValue(value,'url'));
+			jQuery("#" + this.id + " .ui-accordion-content").eq(parseInt(App.getActionValue(value,'index'))).load(App.getActionValue(value,'url'));
 		}
 		
 		this.getActions = function()
@@ -165,7 +163,7 @@ App.UI.registerUIComponent('control','jquery_accordion',
 			{
 				if(App.getActionValue(value, "index"))
 				{
-					jQuery(jQuery("#" + this.id + " .ui-accordion-group").get(App.getActionValue(value,'index'))).before(html.join(" "));
+					jQuery("#" + this.id + " .ui-accordion-group").eq(App.getActionValue(value,'index')).before(html.join(" "));
 				}
 				else
 				{
@@ -176,7 +174,7 @@ App.UI.registerUIComponent('control','jquery_accordion',
 			{
 				if(App.getActionValue(value, "index"))
 				{
-					jQuery(jQuery("#" + this.id + " .ui-accordion-group").get(App.getActionValue(value,'index'))).after(html.join(" "));
+					jQuery("#" + this.id + " .ui-accordion-group").eq(App.getActionValue(value,'index')).after(html.join(" "));
 				} 
 				else
 				{
@@ -198,9 +196,9 @@ App.UI.registerUIComponent('control','jquery_accordion',
 		
 		this.deleteRow = function(value)
 		{
-			jQuery(jQuery("#" + this.id + " .ui-accordion-group").get(App.getActionValue(value))).remove();
+			jQuery("#" + this.id + " .ui-accordion-group").eq(App.getActionValue(value,'index')).remove();
 		}
-		
+
 		this.render = function(value)
 		{
 			var html = [];
@@ -230,7 +228,7 @@ App.UI.registerUIComponent('control','jquery_accordion',
 				}
 			}	
 
-			jQuery("#" + this.id).get(0).innerHTML = html.join(' ');
+			jQuery("#" + this.id).eq(0).html(html.join(' '));
 			jQuery("#" + this.id).accordion("destroy");
 	        jQuery("#" + this.id).accordion(this.options);
 
@@ -244,6 +242,8 @@ App.UI.registerUIComponent('control','jquery_accordion',
 		{
 			this.options = options;
 			this.id = element.id;
+			
+			var requests = [];
 
 			if(jQuery("#" + this.id).get(0).getAttribute("control"))
 			{
@@ -256,18 +256,35 @@ App.UI.registerUIComponent('control','jquery_accordion',
 					if(node.tagName == "DIV")
 					{
 			        	html.push('<div class="ui-accordion-group">');
-				        html.push('	<h3 class="ui-accordion-header"><a href="#">' + node.title + '</a></h3>');					
-						html.push('	 <div class="ui-accordion-content">');					
+				        html.push('	<h3 class="ui-accordion-header"><a href="#">' + node.getAttribute("title") + '</a></h3>');					
+						html.push('	 <div class="ui-accordion-content" id="row-' + c + '">');					
 						html.push(node.innerHTML);
 						html.push(' </div>');
-				        html.push('</div>');					
+				        html.push('</div>');
+				
+						if(node.getAttribute("url"))
+						{
+							requests.push({ id: "row-" + c, url: node.getAttribute("url") });
+						}
 					}
 				}
-
+				
 				element.innerHTML = html.join(' ');
 	        	jQuery("#" + element.id).accordion(options);
+	
+				if(requests.length > 0)
+				{
+					jQuery.each(requests, function(r) 
+					{
+						jQuery("#" + requests[r].id).load(requests[r].url);
+					});
+				}
 			}
 			
 		}
+		
+		this.getControlCSS = function() {
+		  return ['../../common/css/jquery-themes/ui.all.css']
+		};
 	}
 });

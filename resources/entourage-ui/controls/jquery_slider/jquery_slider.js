@@ -32,9 +32,10 @@ App.UI.registerUIComponent('control','jquery_slider',
 						description: "Whether slide handle smoothly when user click outside handle on the bar.",
 						defaultValue: true
 					},
-					{name: "orientation", 
+					{name: "axis", 
 						optional: true, 
-						description: "Normally you don't need to set this option because the plugin detects the slider orientation automatically. If the orientation is not correctly detected you can set this option to 'horizontal' or 'vertical'."
+						description: "Normally you don't need to set this option because the plugin detects the slider orientation automatically. If the orientation is not correctly detected you can set this option to 'horizontal' or 'vertical'.",
+						defaultValue: null
 					},
 					{name: "handle", 
 						optional: true, 
@@ -78,19 +79,23 @@ App.UI.registerUIComponent('control','jquery_slider',
 					},
 					{name: "start", 
 						optional: true, 
-						description: "Function that gets called when the user starts sliding." 
+						description: "Function that gets called when the user starts sliding.", 
+						defaultValue: null
 					},	
 					{name: "slide", 
 						optional: true, 
-						description: "Function that gets called on every mouse move during slide. Takes arguments e and ui, for event and user-interface respectively. Use ui.value (single-handled sliders) to obtain the value of the current handle, $(..).slider('value', index) to get another handles' value."
+						description: "Function that gets called on every mouse move during slide. Takes arguments e and ui, for event and user-interface respectively. Use ui.value (single-handled sliders) to obtain the value of the current handle, $(..).slider('value', index) to get another handles' value.", 
+						defaultValue: null
 					},
 					{name: "change", 
 						optional: true, 
-						description: "Function that gets called on slide stop, but only if the slider position has changed. Takes arguments e and ui, for event and user-interface respectively. Use ui.value (single-handled sliders) to obtain the value of the current handle, $(..).slider('value', index) to get another handles' value."
+						description: "Function that gets called on slide stop, but only if the slider position has changed. Takes arguments e and ui, for event and user-interface respectively. Use ui.value (single-handled sliders) to obtain the value of the current handle, $(..).slider('value', index) to get another handles' value.", 
+						defaultValue: null
 					},	
 					{name: "stop", 
 						optional: true, 
-						description: "Function that gets called when the user stops sliding."
+						description: "Function that gets called when the user stops sliding.", 
+						defaultValue: null
 					}
 					];
 		}
@@ -104,39 +109,27 @@ App.UI.registerUIComponent('control','jquery_slider',
 		{
 			jQuery("#" + this.id).slider("disable");
 		}
-
-		this.option = function(option, value)
-		{
-			jQuery("#" + this.id).slider("option", option, value);
-		}
 		
 		this.value = function(value)
 		{
-			if(value)
-			{
-				jQuery("#" + this.id).slider("value", parseInt(App.getActionValue(value)));
-			}
-			else
-			{
-				return jQuery("#" + this.id).slider("value");
-			}
-		}
-		
-		this.getControlCSS = function()
-		{
-			return ['../../common/css/jquery-themes/ui.all.css']
+			return jQuery("#" + this.id).slider("value", parseInt(App.getActionValue(value, 'value')));
 		}
 		
 		this.getActions = function()
 		{
-			return ['value','enable','disable','showRow','activate','content','remove'];
+			return ['value','enable','disable'];
 		}
 
 		this.build = function(element,options)
 		{
 			this.options = options;
 			this.id = element.id;
+			
 	        jQuery("#" + element.id).slider(options);			
 		}
+		
+		this.getControlCSS = function() {
+		  return ['../../common/css/jquery-themes/ui.all.css']
+		};
 	}
 });

@@ -54,7 +54,9 @@ App.UI.registerUIComponent('control','iterator',
 			var rowCount = 0;
 			this.model = new App.TableModel(App.getActionValue(value,this.options.property));
 			rowCount = this.model.getRowCount();
+			App.Compiler.destroy(this.element,true)
 			this._cleanElement();
+	
 			while ( rowNum < rowCount )
 			{
 				var row = this.model.getRow(rowNum);
@@ -63,7 +65,6 @@ App.UI.registerUIComponent('control','iterator',
 				swiss(this.element).appendHTML(html);
 				rowNum++;
 			}
-			App.Compiler.destroy(this.element,true)
 			App.Compiler.compileElementChildren(this.element,true)
 			this.element.style.display = 'block';
 		
@@ -136,6 +137,7 @@ App.UI.registerUIComponent('control','iterator',
 		};
 		this._cleanElement = function()
 		{
+
 			//innerHTML is READ-ONLY for tables in IE
 			if (this.element.tagName.toUpperCase() == 'TABLE' && App.Browser.isIE)
 			{

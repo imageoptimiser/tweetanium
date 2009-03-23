@@ -27,61 +27,15 @@ App.UI.registerUIComponent('control','jquery_progressbar',
 
 		this.getAttributes = function()
 		{
-			return [{name: "duration", 
+			return [{name: "value", 
 						optional: true, 
-						description: "Time for progressing.",
-						defaultValue: 1000
-					},
-					{name: "increment", 
-						optional: true, 
-						description: "Min stepping of the progressbar. ",
-						defaultValue: 1
-					},
-					{name: "interval", 
-						optional: true, 
-						description: "The technical writers at jQuery thought that this was so obvious that it didn't need a description.",
-						defaultValue: 100
-					},
-					{name: "range", 
-						optional: true,
-						description: "Whether show range number as text on the bar.",
-						defaultValue: true
-					},
-					{name: "text", 
-						optional: true, 
-						description: "Text to show on the bar.",
-						defaultValue: "Demo"
-					},																	 
-					{name: "textClass", 
-						optional: true, 
-						description: "Text CSS class."
-					},		 
-					{name: "width", 
-						optional: true, 
-						description: "Width of the progressbar.", 
-						defaultValue: 300
-					},
-					{name: "start", 
-						optional: true, 
-						description: "Callback function triggered when the progressbar is started.", 
-						defaultValue: false
-					},
-					{name: "pause", 
-						optional: true, 
-						description: "Callback function triggered when the progressbar is paused.", 
-						defaultValue: null
-					},
-					{name: "progress", 
-						optional: true, 
-						description: "Callback function triggered when the progressbar is progressing.", 
-						defaultValue: null
-					},
-					{name: "stop", 
-						optional: true, 
-						description: "Callback function triggered when the progressbar is stopped.", 
+						description: "Value of the progressbar.",
 						defaultValue: 0
-					}
-					];
+					},
+					{name: "change", 
+						optional: true, 
+						description: "Callback for a change in the value"
+					}];
 		}
 		
 		this.enable = function(value)
@@ -96,27 +50,12 @@ App.UI.registerUIComponent('control','jquery_progressbar',
 		
 		this.value = function(value)
 		{
-			jQuery("#" + this.id).progressbar("value", parseInt(App.getActionValue(value)));
-		}
-		
-		this.pause = function(value)
-		{
-			jQuery("#" + this.id).progressbar("pause");
-		}
-
-		this.stop = function(value)
-		{
-			jQuery("#" + this.id).progressbar("stop");
-		}
-
-		this.start = function(value)
-		{
-			jQuery("#" + this.id).progressbar("start");
+			jQuery("#" + this.id).progressbar("value", parseInt(App.getActionValue(value, 'value')));
 		}
 				
 		this.getActions = function()
 		{
-			return ['value','pause','stop','start','enable','disable'];
+			return ['value','enable','disable'];
 		}
 
 		this.build = function(element,options)
@@ -124,7 +63,17 @@ App.UI.registerUIComponent('control','jquery_progressbar',
 			this.options = options;
 			this.id = element.id;
 			
-	        jQuery("#" + element.id).progressbar(options);			
+	        jQuery("#" + element.id).progressbar(options);
+			
+			if(options["value"])
+			{
+				jQuery("#" + element.id).progressbar("value", parseInt(options['value']));
+			}
+			
 		}
+		
+		this.getControlCSS = function() {
+		  return ['../../common/css/jquery-themes/ui.all.css']
+		};
 	}
 });

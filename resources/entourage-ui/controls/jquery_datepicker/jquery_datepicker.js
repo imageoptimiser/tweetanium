@@ -363,19 +363,6 @@ App.UI.registerUIComponent('control','jquery_datepicker',
 			return jQuery("#" + this.id).datepicker("isDisabled");
 		}
 		
-		this.option = function(value)
-		{
-			jQuery("#" + this.id).datepicker("option", App.getActionValue(value,'settings'));
-		}
-
-		this.dialog = function(value)
-		{
-			// dateText (str) the initial date for the date picker.
-			// onSelect (fn) a callback function when a date is selected. The function receives the date text and date picker instance as parameters.
-			// settings (obj) the new settings for the date picker.
-			
-			jQuery("#" + this.id).datepicker("dialog", App.getActionValue(value,'dateText'), App.getActionValue(value,'onSelect'), App.getActionValue(value,'settings')) 
-		}		
 		
 		this.hide = function(value)
 		{
@@ -417,7 +404,7 @@ App.UI.registerUIComponent('control','jquery_datepicker',
 
 		this.getActions = function()
 		{
-			return ['enable','disable','isDisabled','hide','show','setDate'];
+			return ['enable','disable','isDisabled','hide','show','setDate','getDate'];
 		}
 
 		this.build = function(element,options)
@@ -429,5 +416,9 @@ App.UI.registerUIComponent('control','jquery_datepicker',
 
 	        jQuery("#" + element.id).datepicker(options);			
 		}
+		
+		this.getControlCSS = function() {
+		  return ['../../common/css/jquery-themes/ui.all.css']
+		};
 	}
 });
