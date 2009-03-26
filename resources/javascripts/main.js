@@ -952,7 +952,7 @@ $MQL("l:app.compiled", function() {
 						displayLength();
 						Tweetanium2.notification.setTitle('Favorite');
 						Tweetanium2.notification.setMessage('Your favorite request was successful');
-						Tweetanium2.notification.setIcon('app://images/notification.png');
+						Tweetanium2.notification.setIcon('app://notification.png');
 						Tweetanium2.notification.show();
 					},
 					error: function(XMLHttpRequest, textStatus, errorThrown)
@@ -961,7 +961,7 @@ $MQL("l:app.compiled", function() {
 						displayLength();
 						Tweetanium2.notification.setTitle('Favorite');
 						Tweetanium2.notification.setMessage('Only one favorite per tweet!');
-						Tweetanium2.notification.setIcon('app://images/notification.png');
+						Tweetanium2.notification.setIcon('app://notification.png');
 						Tweetanium2.notification.show();
 					}
 				});
@@ -1071,7 +1071,7 @@ $MQL("l:app.compiled", function() {
 				var ps = count > 1 ? 's' : '';
 				Tweetanium2.notification.setTitle('New Tweet'+ps+' received');
 				Tweetanium2.notification.setMessage(count+' new tweet'+ps+' received');
-				Tweetanium2.notification.setIcon('app://images/notification.png');
+				Tweetanium2.notification.setIcon('app://notification.png');
 				Tweetanium2.notification.show();
 			}
 			catch(E)
@@ -1237,7 +1237,7 @@ $MQL("l:app.compiled", function() {
 					alert('textStatus='+textStatus+',error='+errorThrown);
 					Tweetanium2.notification.setTitle('Update');
 					Tweetanium2.notification.setMessage('Sorry there was an error from Twitter!');
-					Tweetanium2.notification.setIcon('app://images/notification.png');
+					Tweetanium2.notification.setIcon('app://notification.png');
 					Tweetanium2.notification.show();
 				}
 			});
@@ -1261,7 +1261,7 @@ $MQL("l:app.compiled", function() {
 					displayLength();
 					Tweetanium2.notification.setTitle('Direct Message');
 					Tweetanium2.notification.setMessage('Your message has been sent');
-					Tweetanium2.notification.setIcon('app://images/notification.png');
+					Tweetanium2.notification.setIcon('app://notification.png');
 					Tweetanium2.notification.show();
 					
 				},
@@ -1269,7 +1269,7 @@ $MQL("l:app.compiled", function() {
 				{
 					Tweetanium2.notification.setTitle('Direct Message');
 					Tweetanium2.notification.setMessage('Sorry there was an error from Twitter!');
-					Tweetanium2.notification.setIcon('app://images/notification.png');
+					Tweetanium2.notification.setIcon('app://notification.png');
 					Tweetanium2.notification.show();
 				}
 			});
