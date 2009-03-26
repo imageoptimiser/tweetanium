@@ -144,7 +144,7 @@ Tweetanium2 = {
 
 		jQuery.ajax(
 		{
-			url: 'https://twitter.com/account/verify_credentials.json',
+			url: 'http://twitter.com/account/verify_credentials.json',
 			dataType: 'json',
 			
 			username: username,
@@ -184,15 +184,15 @@ $MQL("l:app.compiled", function()
 	Tweetanium2.Create();
 	Tweetanium2.GetCredentials();
 	
-	jQuery('#remember').bind("click", function()
+	$('#remember').click(function()
 	{
-		if (jQuery(this).hasClass('unchecked'))
+		if ($(this).hasClass('unchecked'))
 		{
-			jQuery(this).attr('class','');
+			$(this).removeClass('unchecked');
 		}
 		else
 		{
-			jQuery(this).attr('unchecked')
+			$(this).addClass('unchecked')
 		}
 	});
 

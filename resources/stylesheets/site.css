@@ -2,6 +2,7 @@ body
 {
 	opacity:0.94;
 	font-family:"Lucida Sans",arial,sans-serif;
+	overflow:hidden;
 }
 
 * 
